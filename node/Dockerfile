@@ -4,7 +4,7 @@ RUN yum update -y && yum clean all
 RUN yum groupinstall -y "Development Tools"
 
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 5.5.0
+ENV NODE_VERSION 6.1.0
 
 RUN git clone https://github.com/creationix/nvm.git ${NVM_DIR}
 RUN chmod +x ${NVM_DIR}/nvm.sh && \

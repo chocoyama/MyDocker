@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://mongo/count');
+const connection = mongoose.createConnection('mongodb://mongo/count');
 
 const schema = new mongoose.Schema({
   num: {type: Number}
 });
-const Counter = mongoose.model('Counter', schema);
+const Counter = connection.model('Counter', schema);
 const counter = new Counter(); // newし直すと更新されなくなる
 
 process.on('SIGINT', function() { mongoose.disconnect(); });

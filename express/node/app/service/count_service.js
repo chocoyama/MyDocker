@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://mongo/count');
 
-const count_model = require('../model/Count');
-const counter = new count_model.counter();
+const Counter = mongoose.model('Counter', {num: Number});
+const counter = new Counter(); // newし直すと更新されなくなる
+
+process.on('SIGINT', function() { mongoose.disconnect(); });
 
 exports.fetch = function() {
   return new Promise(function(resolve, reject) {
-    count_model.counter.findOne({}, function(err, counter) {
+    Counter.findOne({}, function(err, result) {
       if (!err) {
-        resolve(counter.num + '');
+        resolve(result.num + '');
       } else {
         reject(err);
       }
@@ -18,7 +20,7 @@ exports.fetch = function() {
 
 exports.countUp = function() {
   return new Promise(function(resolve, reject) {
-    count_model.counter.findOne({}, function(err, result) {
+    Counter.findOne({}, function(err, result) {
       if (err) {
         reject(err);
         return;

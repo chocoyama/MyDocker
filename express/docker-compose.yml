@@ -12,7 +12,7 @@ node1:
     - "8080"
 mongo:
   build: ./mongodb
-  volumes:
-    - /data/db
+  # volumes:
+  #   - /data/db:/data/db
   ports:
     - "27017"
